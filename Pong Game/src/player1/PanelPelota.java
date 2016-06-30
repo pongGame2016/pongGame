@@ -142,6 +142,20 @@ public class PanelPelota extends JPanel implements Runnable {
 			e.printStackTrace();
 		}
 	}
+	private void SendBallCoords(){
+		TibrvMsg msg = new TibrvMsg();
+			try {
+				msg.setSendSubject("PLAYER2");
+
+				msg.update("BallCoords",pelotaX, pelotaY);;
+				// .....
+
+				transport.send(msg);
+			} catch (TibrvException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	}
 
 	// Here we receive from the game container class the key released
 	public void keyReleased(KeyEvent evt, TibrvMsg msg) {
@@ -236,6 +250,7 @@ public class PanelPelota extends JPanel implements Runnable {
 				} catch (InterruptedException ex) {
 
 				}
+				
 
 				// Move player 1
 				moverPlayer1();
@@ -266,6 +281,7 @@ public class PanelPelota extends JPanel implements Runnable {
 				if (pelotaX == (jug2X - 5) && pelotaY >= jug2Y && pelotaY <= (jug2Y + 25))
 					izqDer = false;
 			}
+			SendBallCoords();
 
 		}
 
